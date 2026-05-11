@@ -1,13 +1,16 @@
 export default {
   testEnvironment: 'node',
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.[tj]s$': 'babel-jest',
   },
-  moduleFileExtensions: ['js'],
-  testMatch: ['**/tests/**/*.test.js'],
-  collectCoverageFrom: ['src/**/*.js', '!src/server.js'],
+  moduleFileExtensions: ['ts', 'js'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
+  testMatch: ['**/tests/**/*.test.ts'],
+  collectCoverageFrom: ['src/**/*.ts', '!src/server.ts'],
   coverageDirectory: 'coverage',
-  setupFilesAfterEnv: ['./tests/setup.js'],
+  setupFilesAfterEnv: ['./tests/setup.ts'],
   testTimeout: 30000,
   verbose: true,
 };
