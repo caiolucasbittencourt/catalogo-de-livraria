@@ -1,38 +1,40 @@
 # Catálogo de Livraria
 
 ![NodeJS](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Jest](https://img.shields.io/badge/jest-%23C21325.svg?style=for-the-badge&logo=jest&logoColor=white)
 
-Uma API REST construída com Node.js, Express e Mongoose. Este projeto serve como back-end para um sistema de livraria, permitindo o gerenciamento de livros e autores.
+API REST para gerenciamento de livros e autores, usando Node.js, TypeScript e Express.
 
 ## Tecnologias
 
-- **Node.js 22** (Ambiente de execução JavaScript)
-- **Express** (Framework para construção de APIs)
-- **Mongoose** (ODM para modelagem de dados com o MongoDB)
-- **MongoDB** (Banco de dados NoSQL)
-- **Docker** (Containerização)
-- **Jest** (Framework de testes)
-- **ESLint** (Linting de código)
-- **Prettier** (Formatação de código)
+- Node.js 22
+- TypeScript
+- Express
+- Mongoose
+- MongoDB
+- Jest
+- ESLint
+- Prettier
+- Docker
 
-### Funcionalidades
+## Funcionalidades
 
-- **CRUD de Livros:** Criação, leitura, atualização e remoção de livros.
-- **CRUD de Autores:** Gerenciamento de autores.
-- **Busca:** Localização de livros e autores por ID.
-- **Relacionamentos:** Associação de dados entre livros e autores.
+- CRUD de Livros
+- CRUD de Autores
+- Busca por ID
+- Relacionamento entre livros e autores
 
-### Pré-requisitos
+## Pré-requisitos
 
-- Node.js 22+ (ou use o arquivo `.nvmrc`)
+- Node.js 22+ (ou use `.nvmrc`)
 - MongoDB (local ou Atlas)
 - Docker (opcional)
 
-### Instalação
+## Instalação
 
 ```bash
 git clone https://github.com/caiolucasbittencourt/catalogo-de-livraria.git
@@ -40,83 +42,99 @@ cd catalogo-de-livraria
 npm install
 ```
 
-### Configuração
+## Configuração
 
-Crie um arquivo `.env` na raiz do projeto baseado no `.env.example`:
+Crie um arquivo `.env` na raiz baseado no `.env.example`:
 
 ```bash
 cp .env.example .env
 ```
 
-Configure a variável `DB_CONNECTION_STRING` com sua string de conexão do MongoDB.
+Defina a variável `DB_CONNECTION_STRING` com sua conexão do MongoDB.
 
-### Executando
+## Executando
 
-#### Desenvolvimento (local)
+### Desenvolvimento
 
 ```bash
 npm run dev
 ```
 
-#### Produção
+Executa `src/server.ts` com watch nativo do Node.
+
+### Produção (local)
 
 ```bash
+npm run build
 npm start
 ```
 
-#### Docker
+`npm start` executa `dist/server.js`.
+
+### Docker
 
 ```bash
-npm run docker:up        # Inicia a API (Mongo via Atlas/.env)
-npm run docker:up:local  # Inicia API + Mongo local (profile local-db)
-npm run docker:down      # Para os containers
-npm run docker:logs      # Visualiza logs da API
-npm run docker:build     # Rebuild da imagem
+npm run docker:up
+npm run docker:up:local
+npm run docker:down
+npm run docker:logs
+npm run docker:build
 ```
 
-Para usar o MongoDB local, configure `DB_CONNECTION_STRING=mongodb://mongo:27017/catalogo-de-livraria` no `.env`.
+Para Mongo local com Docker, use:
 
-### Scripts
-
-| Script                    | Descrição                                   |
-| ------------------------- | ------------------------------------------- |
-| `npm run dev`             | Inicia o servidor com hot-reload (nodemon)  |
-| `npm start`               | Inicia o servidor em produção               |
-| `npm test`                | Executa os testes                           |
-| `npm run test:watch`      | Executa testes em modo watch                |
-| `npm run test:coverage`   | Executa testes com relatório de cobertura   |
-| `npm run lint`            | Executa o ESLint                            |
-| `npm run lint:fix`        | Corrige erros do ESLint automaticamente     |
-| `npm run format`          | Formata o código com Prettier               |
-| `npm run format:check`    | Verifica formatação sem alterar             |
-| `npm run docker:up`       | Sobe os containers Docker                   |
-| `npm run docker:up:local` | Sobe API + MongoDB local (profile local-db) |
-| `npm run docker:down`     | Para os containers Docker                   |
-
-### Rotas
-
-#### Base
-
-| Método | Rota | Descrição                  |
-| ------ | ---- | -------------------------- |
-| GET    | `/`  | Retorna informações da API |
-
-**Exemplo de resposta:**
-
-```json
-{
-  "name": "Catálogo de Livraria",
-  "version": "1.0.0",
-  "description": "API REST para gerenciamento de livros e autores",
-  "endpoints": {
-    "livros": "/livros",
-    "autores": "/autores"
-  },
-  "documentation": "https://github.com/caiolucasbittencourt/catalogo-de-livraria"
-}
+```env
+DB_CONNECTION_STRING=mongodb://mongo:27017/catalogo-de-livraria
 ```
 
-#### Livros
+## Scripts
+
+| Script                    | Descrição                                     |
+| ------------------------- | --------------------------------------------- |
+| `npm run dev`             | Executa `src/server.ts` em watch              |
+| `npm run build`           | Compila TypeScript para `dist/`               |
+| `npm start`               | Inicia API a partir de `dist/server.js`       |
+| `npm run typecheck`       | Verifica tipos com TypeScript sem gerar build |
+| `npm test`                | Executa testes                                |
+| `npm run test:watch`      | Executa testes em modo watch                  |
+| `npm run test:coverage`   | Executa testes com cobertura                  |
+| `npm run lint`            | Lint em `src/` e `tests/`                     |
+| `npm run lint:fix`        | Corrige problemas de lint automaticamente     |
+| `npm run format`          | Formata arquivos `.ts` de `src/` e `tests/`   |
+| `npm run format:check`    | Verifica formatação sem alterar arquivos      |
+| `npm run docker:up`       | Sobe API com Docker Compose                   |
+| `npm run docker:up:local` | Sobe API + Mongo local (profile `local-db`)   |
+| `npm run docker:down`     | Derruba containers                            |
+| `npm run docker:logs`     | Exibe logs da API                             |
+| `npm run docker:build`    | Rebuild da imagem da API                      |
+
+## Estrutura
+
+```text
+src/
+  config/
+  controllers/
+  errors/
+  middlewares/
+  models/
+  routes/
+  app.ts
+  server.ts
+tests/
+  integration/
+  app.ts
+  setup.ts
+```
+
+## Rotas
+
+### Base
+
+| Método | Rota | Descrição          |
+| ------ | ---- | ------------------ |
+| GET    | `/`  | Informações da API |
+
+### Livros
 
 | Método | Rota          | Descrição                   |
 | ------ | ------------- | --------------------------- |
@@ -126,7 +144,7 @@ Para usar o MongoDB local, configure `DB_CONNECTION_STRING=mongodb://mongo:27017
 | PUT    | `/livros/:id` | Atualiza um livro existente |
 | DELETE | `/livros/:id` | Remove um livro             |
 
-#### Autores
+### Autores
 
 | Método | Rota           | Descrição                   |
 | ------ | -------------- | --------------------------- |
