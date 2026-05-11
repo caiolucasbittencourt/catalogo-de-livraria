@@ -25,8 +25,9 @@ class LivroController {
     if (autorEncontrado) {
       const livroCriado = {
         ...novoLivro,
-        autor: { ...autorEncontrado._doc },
+        author: autorEncontrado.toObject(),
       };
+      delete livroCriado.autor;
       const livroSalvo = await livro.create(livroCriado);
       res
         .status(201)
